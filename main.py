@@ -1,4 +1,5 @@
 from logging import debug
+import os
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit, send, join_room, leave_room
 
@@ -33,4 +34,4 @@ def leave(room):
 
 if __name__=='__main__':
     #socketiocon.run(app, debug=True)
-    socketiocon.run(app)
+    socketiocon.run(app,  port=int(os.environ.get('PORT', 5000)))
