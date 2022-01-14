@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocketIO y Python</title>
+</head>
+<body>
+    <h1>Python y SocketIO</h1>
+
+    <ul id="messages"></ul>
+
+
+    <input type="text" id="idsala">
+    <button type="button" id="joinsala">Unirse a una sala</button>
+    <button type="button" id="leavesala">Salir de la sala</button>
+
+    <input type="text" id="myMessage">
+    
+    <button type="button" id="send">Send</button>
+    <!--Librerias de jquery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!--Libreria de socketio-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js" integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        //inicializamos el socket
+        const socket =io();
+
+        
+        //revisamos si se recibio algun mensaje en el lado del cliente, si fue asi, lo agregamos al ul
+        socket.on('message', function(msg){
+            $('#messages').append('<li>'+msg+'</li>')
+        });
+        
+        
+        //enviamos el mensaje cuando se oprima el boton
+        $('#send').on('click', function(e){
+            socket.send($('#myMessage').val(), $('#idsala').val());
+            $('#myMessage').val('');
+        });
+
+        $('#joinsala').on('click', function(e){
+            socket.emit('join', { room:$('#idsala').val()});
+        });
+
+        $('#leavesala').on('click', function(e){
+            socket.emit('leave', { room:$('#idsala').val()})
+        });
+    </script>
+</body>
+</html>
