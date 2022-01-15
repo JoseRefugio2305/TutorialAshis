@@ -26,7 +26,7 @@
     
     <script>
         //inicializamos el socket
-        const socket =io();
+        const socket =io.connect("https://shareimagesbyrefugio.herokuapp.com");
 
         
         //revisamos si se recibio algun mensaje en el lado del cliente, si fue asi, lo agregamos al ul
