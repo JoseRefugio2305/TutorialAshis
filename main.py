@@ -33,5 +33,5 @@ def leave(room):
     send(username+" abandono la habitacion", to=room['room'])
 
 if __name__=='__main__':
-    #socketiocon.run(app, debug=True)
-    socketiocon.run(app,  port=int(os.environ.get('PORT', 5000)))
+    socketiocon.run(app, debug=True)
+    #socketiocon.run(app,  port=int(os.environ.get('PORT', 5000)))
